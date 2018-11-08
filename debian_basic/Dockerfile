@@ -1,5 +1,5 @@
 FROM bitnami/minideb:jessie
 MAINTAINER Christian Brandt <christian.jena@gmail.com>
 RUN apt-get update
-RUN apt-get install -y wget gcc g++ unzip make curl lbzip2 zlib1g-dev
+RUN apt-get install -y wget gcc g++ unzip make curl lbzip2 zlib1g-dev bzip2
 RUN install_packages python3
