@@ -1,4 +1,4 @@
-FROM replikation/debian_basic
+#FROM replikation/debian_basic
 MAINTAINER Christian Brandt <christian.jena@gmail.com>
 RUN git clone --recursive https://github.com/jts/nanopolish
 WORKDIR  /nanopolish/
