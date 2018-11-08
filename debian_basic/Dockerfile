@@ -2,4 +2,5 @@ FROM bitnami/minideb:jessie
 MAINTAINER Christian Brandt <christian.jena@gmail.com>
 RUN apt-get update
 RUN apt-get install -y wget gcc g++ unzip make curl lbzip2 zlib1g-dev
+RUN install_packages python3
 RUN apt-get clean
