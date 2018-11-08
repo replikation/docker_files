@@ -1,7 +1,6 @@
 FROM replikation/debian_basic
 MAINTAINER Christian Brandt <christian.jena@gmail.com>
-RUN wget https://github.com/lh3/bwa/archive/master.zip
-RUN unzip master.zip; rm master.zip
-WORKDIR  /bwa-master/
+git clone https://github.com/lh3/bwa.git
+WORKDIR  /bwa/
 RUN make
-ENV PATH /bwa-master/:$PATH
+ENV PATH /bwa/:$PATH

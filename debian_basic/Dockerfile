@@ -2,6 +2,7 @@ FROM bitnami/minideb:jessie
 MAINTAINER Christian Brandt <christian.jena@gmail.com>
 RUN apt-get update
 RUN apt-get install -y  wget \
+                        git \
                         gcc \
                         g++ \
                         unzip \
