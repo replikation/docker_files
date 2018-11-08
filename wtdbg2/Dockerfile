@@ -1,4 +1,4 @@
-FROM replikation/debian_basic
+FROM replikation/debian_python3
 MAINTAINER Christian Brandt <christian.jena@gmail.com>
 RUN wget https://github.com/ruanjue/wtdbg2/archive/master.zip
 RUN unzip master.zip
