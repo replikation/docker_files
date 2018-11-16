@@ -7,9 +7,9 @@ ENV PATH /nanopolish/:$PATH
 ENV PATH /nanopolish/scripts/:$PATH
 
 # make scripts executable
-RUN sed -i '1i#!/usr/bin/python3' /nanopolish/scripts/nanopolish_makerange.py
+RUN sed -i '1i#!/usr/bin/env python3' /nanopolish/scripts/nanopolish_makerange.py
 RUN chmod +x /nanopolish/scripts/nanopolish_makerange.py
-RUN sed -i '1i#!/usr/bin/python3' /nanopolish/scripts/nanopolish_merge.py
+RUN sed -i '1i#!/usr/bin/env python3' /nanopolish/scripts/nanopolish_merge.py
 RUN chmod +x /nanopolish/scripts/nanopolish_merge.py
 
 # install parallel
