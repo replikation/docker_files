@@ -12,5 +12,6 @@ RUN apt-get install -y  wget \
                         zlib1g-dev \
                         bzip2 \
                         libbz2-dev \
-                        liblzma-dev
+                        liblzma-dev \
+                        procps
 RUN install_packages python3

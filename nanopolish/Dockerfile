@@ -6,7 +6,7 @@ RUN make
 ENV PATH /nanopolish/:$PATH
 ENV PATH /nanopolish/scripts/:$PATH
 
-# make scripts executable
+# make scripts executable & and add shebang
 RUN sed -i '1i#!/usr/bin/env python3' /nanopolish/scripts/nanopolish_makerange.py
 RUN chmod +x /nanopolish/scripts/nanopolish_makerange.py
 RUN sed -i '1i#!/usr/bin/env python3' /nanopolish/scripts/nanopolish_merge.py
@@ -19,6 +19,7 @@ RUN tar xvjf parallel-latest.tar.bz2
 RUN mv parallel-*/ parallel/
 WORKDIR  /parallel/
 RUN ./configure && make && make install
+RUN rm -f parallel-latest.tar.bz2
 
 # install bioclite
 WORKDIR /
