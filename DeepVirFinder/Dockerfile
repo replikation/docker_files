@@ -10,5 +10,5 @@ RUN conda install python=3.6 numpy theano keras
 RUN git clone https://github.com/jessieren/DeepVirFinder
 RUN chmod +x /DeepVirFinder/dvf.py
 ENV PATH /DeepVirFinder:$PATH
-# modify shebangs for bioperl
-# RUN sed -i '1i#!/conda/bin/perl' /conda/bin/filter_sequences_by_length.pl
+ENTRYPOINT ["dvf.py"]
+CMD ["-h"]

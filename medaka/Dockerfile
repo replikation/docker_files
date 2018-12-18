@@ -17,3 +17,5 @@ RUN mv medaka* medaka/
 WORKDIR medaka
 RUN make install
 ENV PATH=/medaka/venv/bin/:$PATH
+ENTRYPOINT ["medaka"]
+CMD ["-h"]
