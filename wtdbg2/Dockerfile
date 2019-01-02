@@ -4,5 +4,3 @@ RUN git clone https://github.com/ruanjue/wtdbg2.git
 WORKDIR  /wtdbg2/
 RUN make
 ENV PATH /wtdbg2/:$PATH
-ENTRYPOINT ["wtdbg2"]
-CMD ["-h"]
