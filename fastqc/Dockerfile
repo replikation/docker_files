@@ -1,6 +1,5 @@
 FROM replikation/debian_basic
 MAINTAINER Christian Brandt <christian.jena@gmail.com>
-
 ENV URL=http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
 ENV ZIP=fastqc_v0.11.8.zip
 ENV DST=/fastqc

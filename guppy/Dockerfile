@@ -1,5 +1,5 @@
 FROM ubuntu:xenial
-MAINTAINER Christian <christian.jena@gmail.com>
+MAINTAINER Christian Brandt <christian.jena@gmail.com>
 RUN  apt-get update
 RUN  apt-get install -y wget lsb-release
 RUN apt-get install -y apt-transport-https
