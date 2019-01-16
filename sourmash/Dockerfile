@@ -8,5 +8,7 @@ RUN pip install numpy
 RUN pip install scipy
 RUN pip install matplotlib
 RUN sed -i 's/tkagg/agg/g' /usr/local/lib/python2.7/dist-packages/matplotlib/mpl-data/matplotlibrc
-RUN /bin/sh -c "echo 'backend: Agg' > /root/.config/matplotlib/matplotlibrc"
+RUN mkdir /root/.config/
+RUN mkdir /root/.config/matplotlib
 RUN pip install sourmash
+RUN /bin/sh -c "echo 'backend: Agg' > /root/.config/matplotlib/matplotlibrc"
