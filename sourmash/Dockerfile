@@ -10,5 +10,14 @@ RUN pip install matplotlib
 RUN sed -i 's/tkagg/agg/g' /usr/local/lib/python2.7/dist-packages/matplotlib/mpl-data/matplotlibrc
 RUN mkdir /root/.config/
 RUN mkdir /root/.config/matplotlib
-RUN pip install sourmash
 RUN /bin/sh -c "echo 'backend: Agg' > /root/.config/matplotlib/matplotlibrc"
+# from the sourmash github
+ENV PACKAGES python-setuptools ca-certificates
+ENV SOURMASH_VERSION master
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends ${PACKAGES} && \
+    apt-get clean
+
+RUN git clone https://github.com/dib-lab/sourmash.git -b ${SOURMASH_VERSION} && \
+    cd sourmash && \
+    python setup.py install
