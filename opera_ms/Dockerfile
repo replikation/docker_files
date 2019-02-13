@@ -18,11 +18,11 @@ RUN git clone https://github.com/CSB5/OPERA-MS.git operams
 WORKDIR /home/$UNAME/operams
 USER root
 RUN make
-# This are dropbox links, so check the github if something breaks here
+# These are dropbox links, so check the github if something breaks here
 RUN wget --no-check-certificate -O /home/opera/operams/genomeDB_Sketch.msh \
-https://www.dropbox.com/sh/uawdmrh7d6d03nu/AADImd7vn8nld1NjXSbQjo04a/genomeDB_Sketch.msh?dl=0
+https://www.dropbox.com/s/kot086vh26nds6j/genomeDB_Sketch.msh?dl=0
 RUN wget --no-check-certificate -O /home/opera/operams/complete_ref_genomes.tar.gz \
-https://www.dropbox.com/sh/uawdmrh7d6d03nu/AABn1BtlIDM3olhCSBerOv22a/complete_ref_genomes.tar.gz?dl=0
+https://www.dropbox.com/s/wcxvy2u0yhp3pw0/complete_ref_genomes.tar.gz?dl=0
 
 RUN tar -xvzf /home/opera/operams/complete_ref_genomes.tar.gz && touch /home/opera/operams/database_updated
 
