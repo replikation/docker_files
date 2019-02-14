@@ -63,6 +63,12 @@ RUN rm -r bowtie2*
 WORKDIR /usr/local/bin/
 RUN wget "https://github.com/broadinstitute/pilon/releases/download/v1.22/pilon-1.22.jar"
 
+# Install minimap2
+WORKDIR /
+RUN git clone https://github.com/lh3/minimap2
+RUN cd minimap2 && make
+ENV PATH /minimap2/:$PATH
+
 # Install Unicycler
 WORKDIR /unicycler
 RUN git clone https://github.com/rrwick/Unicycler.git
@@ -71,6 +77,7 @@ ENV TERM=xterm
 RUN python3 setup.py install
 WORKDIR /unicycler
 RUN rm -r Unicycler
+WORKDIR /
 
 # ENTRYPOINT
 ENTRYPOINT ["unicycler"]
