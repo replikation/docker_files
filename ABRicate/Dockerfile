@@ -9,5 +9,4 @@ RUN conda config --add channels bioconda
 RUN conda config --add channels conda-forge
 RUN conda install abricate
 RUN abricate --check
-RUN abricate --list
 ENTRYPOINT ["abricate"]

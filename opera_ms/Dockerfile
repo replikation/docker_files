@@ -1,9 +1,9 @@
 FROM ubuntu:latest
-
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y git wget cpanminus build-essential python r-base
+RUN apt-get clean
 
 ARG UNAME=opera
 ARG UID=1000

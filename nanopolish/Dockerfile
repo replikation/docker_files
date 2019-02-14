@@ -1,5 +1,21 @@
-FROM replikation/debian_basic
+FROM ubuntu:xenial
+ENV DEBIAN_FRONTEND=noninteractive
 MAINTAINER Christian Brandt <christian.jena@gmail.com>
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+					 python3 \
+					 python3-pip \
+					 python3-setuptools \
+           git \
+					 make \
+					 wget \
+					 g++ \
+           bzip2 \
+           lbzip2 \
+           libbz2-dev \
+           zlib1g-dev
+
+RUN pip3 install --upgrade pip
 RUN git clone --recursive https://github.com/jts/nanopolish
 WORKDIR  /nanopolish/
 RUN make
@@ -23,6 +39,6 @@ RUN rm -f parallel-latest.tar.bz2
 
 # install bioclite
 WORKDIR /
-RUN wget https://bootstrap.pypa.io/get-pip.py
-RUN python3 get-pip.py
-RUN pip install biopython pysam
+RUN pip3 install biopython pysam
+
+RUN apt-get clean
