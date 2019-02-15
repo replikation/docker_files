@@ -1,14 +1,26 @@
-FROM replikation/debian_basic
+FROM ubuntu:bionic
+ENV DEBIAN_FRONTEND=noninteractive
 MAINTAINER Christian Brandt <christian.jena@gmail.com>
 
-RUN apt-get update \
-  && apt-get install -y \
-  ncbi-blast+ \
-  default-jre \
-  python3-dev \
-  python3-pip \
-  cmake \
-  && apt-get clean
+RUN apt-get update && apt-get install -y --no-install-recommends \
+					 python3 \
+					 python3-pip \
+					 python3-setuptools \
+           git \
+           cmake \
+					 make \
+					 wget \
+					 g++ \
+           bzip2 \
+           lbzip2 \
+           libbz2-dev \
+           zlib1g-dev \
+           ncbi-blast+ \
+           default-jre \
+           liblzma-dev \
+           unzip
+RUN apt-get clean
+
 RUN mkdir unicycler
 WORKDIR unicycler
 
@@ -25,15 +37,6 @@ RUN rm -r SPAdes-3.11.1-Linux*
 # Install racon
 RUN git clone --recursive https://github.com/isovic/racon.git racon
 RUN mkdir -p /unicycler/racon/build
-
-WORKDIR /unicycler/
-RUN wget https://github.com/Kitware/CMake/releases/download/v3.13.2/cmake-3.13.2.tar.gz
-RUN sh -c 'tar -xzf cmake-*.tar.gz'
-WORKDIR /unicycler/cmake-3.13.2/
-RUN ./configure
-RUN make && make install
-RUN rm -r /unicycler/cmake*
-
 WORKDIR /unicycler/racon/build
 RUN cmake -DCMAKE_BUILD_TYPE=Release ..
 RUN make && make install
@@ -58,24 +61,26 @@ WORKDIR /unicycler/bowtie2/
 RUN mv bowtie2* /usr/local/bin
 WORKDIR /unicycler
 RUN rm -r bowtie2*
+WORKDIR /
 
 # Install Pilon
 RUN cd /usr/local/bin/ && wget "https://github.com/broadinstitute/pilon/releases/download/v1.22/pilon-1.22.jar"
 
+## Dependencies for unicycler_polish
 # Install minimap2
 RUN git clone https://github.com/lh3/minimap2
 RUN cd minimap2 && make
 ENV PATH /minimap2/:$PATH
 
 # Install freebayes
-RUN  git clone --recursive git://github.com/ekg/freebayes.git freebayes \
-RUN cd freebayes && make && make install \
+RUN  git clone --recursive git://github.com/ekg/freebayes.git freebayes
+RUN cd freebayes && make && make install
 RUN rm -rf freebayes
 
 # Install ALE
 RUN git clone https://github.com/sc932/ALE.git
 RUN cd ALE/src && make
-ENV PATH /ALE/:$PATH
+ENV PATH /ALE/src:$PATH
 
 # Install Unicycler
 WORKDIR /unicycler
