@@ -25,18 +25,18 @@ RUN mkdir unicycler
 WORKDIR unicycler
 
 # Install SPAdes
-RUN wget "http://cab.spbu.ru/files/release3.11.1/SPAdes-3.11.1.tar.gz"
-RUN tar -xzf SPAdes-3.11.1.tar.gz
-RUN mkdir -p /unicycler/SPAdes-3.11.1-Linux/src/build
-WORKDIR /unicycler/SPAdes-3.11.1/src/build
+RUN wget --no-check-certificate "http://cab.spbu.ru/files/release3.13.0/SPAdes-3.13.0.tar.gz" \
+ 		&& tar -xzf SPAdes-3.13.0.tar.gz \
+ 		&& mkdir -p /unicycler/SPAdes-3.13.0/src/build
+WORKDIR /unicycler/SPAdes-3.13.0/src/build
 RUN cmake ..
 RUN make install
 WORKDIR /unicycler
-RUN rm -r SPAdes-3.11.1-Linux*
+RUN rm -r SPAdes-3.13.0*
 
 # Install racon
-RUN git clone --recursive https://github.com/isovic/racon.git racon
-RUN mkdir -p /unicycler/racon/build
+RUN git clone --recursive https://github.com/isovic/racon.git racon \
+ 		&& mkdir -p /unicycler/racon/build
 WORKDIR /unicycler/racon/build
 RUN cmake -DCMAKE_BUILD_TYPE=Release ..
 RUN make && make install
@@ -44,9 +44,9 @@ WORKDIR /unicycler/
 RUN rm -r racon*
 
 # Install samtools
-RUN wget https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2
-RUN tar xjf samtools*.tar.bz2 ; rm samtools*.tar.bz2
-RUN mv /unicycler/samtools-*/ /unicycler/samtools/
+RUN wget --no-check-certificate https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2 \
+		&& tar xjf samtools*.tar.bz2 ; rm samtools*.tar.bz2 \
+		&& mv /unicycler/samtools-*/ /unicycler/samtools/
 WORKDIR  /unicycler/samtools/
 RUN ./configure --without-curses
 RUN make && make install
@@ -54,9 +54,9 @@ WORKDIR /unicycler
 RUN rm -r samtools*
 
 # Install bowtie2
-RUN wget https://github.com/BenLangmead/bowtie2/releases/download/v2.3.4.3/bowtie2-2.3.4.3-linux-x86_64.zip
-RUN unzip bowtie2-*.zip
-RUN mv /unicycler/bowtie2-*/ /unicycler/bowtie2/
+RUN wget --no-check-certificate https://github.com/BenLangmead/bowtie2/releases/download/v2.3.4.3/bowtie2-2.3.4.3-linux-x86_64.zip \
+ 		&& unzip bowtie2-*.zip \
+ 		&& mv /unicycler/bowtie2-*/ /unicycler/bowtie2/
 WORKDIR /unicycler/bowtie2/
 RUN mv bowtie2* /usr/local/bin
 WORKDIR /unicycler
@@ -64,23 +64,12 @@ RUN rm -r bowtie2*
 WORKDIR /
 
 # Install Pilon
-RUN cd /usr/local/bin/ && wget "https://github.com/broadinstitute/pilon/releases/download/v1.22/pilon-1.22.jar"
+RUN cd /usr/local/bin/ && wget --no-check-certificate "https://github.com/broadinstitute/pilon/releases/download/v1.22/pilon-1.22.jar"
 
-## Dependencies for unicycler_polish
 # Install minimap2
-RUN git clone https://github.com/lh3/minimap2
-RUN cd minimap2 && make
+RUN git clone https://github.com/lh3/minimap2 \
+ 		&& cd minimap2 && make
 ENV PATH /minimap2/:$PATH
-
-# Install freebayes
-RUN  git clone --recursive git://github.com/ekg/freebayes.git freebayes
-RUN cd freebayes && make && make install
-RUN rm -rf freebayes
-
-# Install ALE
-RUN git clone https://github.com/sc932/ALE.git
-RUN cd ALE/src && make
-ENV PATH /ALE/src:$PATH
 
 # Install Unicycler
 WORKDIR /unicycler
@@ -95,3 +84,12 @@ WORKDIR /
 # ENTRYPOINT
 ENTRYPOINT ["unicycler"]
 CMD ["--help"]
+
+# clean up
+RUN apt-get purge -y \
+					 python3-pip \
+					 python3-setuptools \
+           git \
+           cmake \
+					 make \
+					 wget
