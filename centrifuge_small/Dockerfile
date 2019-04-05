@@ -13,4 +13,3 @@ WORKDIR /centrifuge
 RUN make
 RUN make install prefix=/usr/local
 ENV PATH /centrifuge/:$PATH
-RUN ln -s -T /usr/bin/python3 /usr/bin/python
