@@ -15,7 +15,7 @@ RUN bash Miniconda3-latest-Linux-x86_64.sh -b -p /conda \
 ENV PATH /conda/bin:$PATH
 RUN conda config --add channels bioconda
 RUN conda config --add channels conda-forge
-RUN conda config --add channels docker imadefault
+RUN conda config --add channels default
 RUN conda install medaka
 #ENV PATH /conda/envs/medaka/bin/:$PATH
 ENTRYPOINT ["medaka"]
