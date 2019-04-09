@@ -3,7 +3,7 @@ MAINTAINER Christian Brandt <christian.jena@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y \
-                                         wget \
+                        wget \
                         lbzip2 \
                         zlib1g-dev \
                         bzip2 \
@@ -13,9 +13,7 @@ RUN wget --no-check-certificate https://repo.anaconda.com/miniconda/Miniconda3-l
 RUN bash Miniconda3-latest-Linux-x86_64.sh -b -p /conda \
 && rm -f Miniconda3-latest-Linux-x86_64.sh
 ENV PATH /conda/bin:$PATH
-RUN conda config --add channels bioconda
-RUN conda config --add channels conda-forge
-RUN conda config --add channels default
+RUN conda config --add channels bioconda && \
+		conda config --add channels conda-forge && \
+		conda config --add channels default
 RUN conda install medaka
-#ENV PATH /conda/envs/medaka/bin/:$PATH
-ENTRYPOINT ["medaka"]
