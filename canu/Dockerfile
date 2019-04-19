@@ -4,5 +4,3 @@ RUN git clone https://github.com/marbl/canu.git
 WORKDIR /canu/src
 RUN make
 ENV PATH /canu/Linux-amd64/bin:$PATH
-ENTRYPOINT ["canu"]
-CMD ["-h"]
