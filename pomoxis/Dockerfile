@@ -2,7 +2,7 @@ FROM ubuntu:xenial
 MAINTAINER Christian Brandt <christian.jena@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get upgrade
+RUN apt-get update
 RUN	apt-get install -y \
 			libatlas-base-dev \
 			libbz2-dev \
