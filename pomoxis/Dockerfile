@@ -35,13 +35,4 @@ RUN mkdir /ONT && \
 	cd pomoxis && \
 	make install
 
-# Create a activating environment after a docker run
-# from dpirdmk/pomoxis
-RUN echo "#!/bin/bash" > /usr/local/bin/init.sh && \
-		echo ". /ONT/pomoxis/venv/bin/activate" >> /usr/local/bin/init.sh && \
-    echo "exec \"\$@\"" >> /usr/local/bin/init.sh && \
-    chmod +x /usr/local/bin/init.sh && \
-    ln -s /usr/local/bin/init.sh /
-
-ENTRYPOINT ["init.sh"]
-CMD ["/bin/bash"]
+ENV PATH /ONT/pomoxis/venv/bin/:$PATH
